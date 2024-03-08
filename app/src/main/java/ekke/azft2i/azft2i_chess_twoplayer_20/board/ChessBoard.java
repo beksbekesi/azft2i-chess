@@ -142,54 +142,39 @@ public class ChessBoard {
         // ellenőrizzük, hogy a kiindulási pozícióban létezik-e bábu
         if (startPiece == null) {
             Log.d("ChessBoard", "- Nincs figura a kattintott mezőn - movePiece()");
+            return;
         }
+        //ellenőrízzük ki lép
+        if(isWhiteMove && startPiece.getColor().equals(Color.BLACK)
+            || !isWhiteMove && startPiece.getColor().equals(Color.WHITE)){
+            return;
+        }
+
         // ellenőrizzük, hogy a bábu szabályosan mozog-e
         if (!startPiece.isValidMove(endX, endY)) {
             Log.d("ChessBoard", "HIBA - Érvénytelen mozgás a validálás közben, a mozgás nem megtehető.- movePiece()");
-        } else
+            return;
+        }
+
+        //ellenőrízzük, hogy nem-e saját bábut akar leütni
+        if(endPosition != null && endPosition.getColor().equals(startPiece.getColor())){
+            return;
+        }
+
             // nincs figura a célmezőn, egyszerűen töröljük a kezdőpozícióban a peicet, majd újat ehlyezünk fel a célpozícióba
         if (endPosition == null) {
-            switch (startPiece.getSymbol()) {
-                case "P":
-                    removePieceAt(startX,startY);
-                    addNewPiece(endX,endY,new Pawn(endX,endY,startPiece.getColor()));
-                    break;
-                case "R":
-                    removePieceAt(startX,startY);
-                    addNewPiece(endX,endY,new Rook(endX,endY,startPiece.getColor()));
-                    break;
-                case "N":
-                    removePieceAt(startX,startY);
-                    addNewPiece(endX,endY,new Knight(endX,endY,startPiece.getColor()));
-                    break;
-                case "B":
-                    removePieceAt(startX,startY);
-                    addNewPiece(endX,endY,new Bishop(endX,endY,startPiece.getColor()));
-                    break;
-                case "Q":
-                    removePieceAt(startX,startY);
-                    addNewPiece(endX,endY,new Queen(endX,endY,startPiece.getColor()));
-                    break;
-                case "K":
-                    removePieceAt(startX,startY);
-                    addNewPiece(endX,endY,new King(endX,endY,startPiece.getColor()));
-                    break;
-                default:
-                    Log.d("ChessBoard","Váratlan esemény - movePiece() - switch szerkezet1 .");
-                    break;
-            }
+            removePieceAt(startX,startY);
+            addNewPiece(endX,endY,startPiece);
+            startPiece.setXPosition(endX);
+            startPiece.setYPosition(endY);
+
             // kiemelni metódusba, mert ismétlődik, vagy mindkettőt a végére, ha már minden lefutott
             drawPieces(gameActivity.findViewById(R.id.chessBoard)); // rajzoljuk is ki
             Log.d("ChessGame","Lépés üres mezőre: "+startX+","+startY+"->"+endX+","+endY);
             isWhiteMove = !isWhiteMove; // Játékosváltás
         }
-        // nem null itt már,  tehát egy piece van ott, le is kell ütni vagy lehet saját ?!
-        else if (endPosition.getColor() == startPiece.getColor()) {
-            Log.d("ChessBoard", "Nem üthet saját figurára - movePiece()");
-        }
         else {
             // tehát ellenséges figura van a célmezőn, mivel minden más esetet korábban lefedtünk
-
             // itt kimennek pálya szélére figyelni akiket leütnek
             if ( endPosition.getColor() == Color.WHITE ) {
                 updateCapturedPiecesLayout(gameActivity.whiteCapturedPiecesLayout, endPosition);
@@ -205,29 +190,9 @@ public class ChessBoard {
 
 
             // új figura hozzáadása, a start pozícióban álló szerinti figurát, az új pozícióba
-            switch (startPiece.getSymbol()) {
-                case "P":
-                    addNewPiece(endX,endY,new Pawn(endX,endY,startPiece.getColor()));
-                    break;
-                case "R":
-                    addNewPiece(endX,endY,new Rook(endX,endY,startPiece.getColor()));
-                    break;
-                case "N":
-                    addNewPiece(endX,endY,new Knight(endX,endY,startPiece.getColor()));
-                    break;
-                case "B":
-                    addNewPiece(endX,endY,new Bishop(endX,endY,startPiece.getColor()));
-                    break;
-                case "Q":
-                    addNewPiece(endX,endY,new Queen(endX,endY,startPiece.getColor()));
-                    break;
-                case "K":
-                    addNewPiece(endX,endY,new King(endX,endY,startPiece.getColor()));
-                    break;
-                default:
-                    Log.d("ChessGame","Váratlan esemény - movePiece() - switch szerkezet2 .");
-                    break;
-            }
+            startPiece.setXPosition(endX);
+            startPiece.setYPosition(endY);
+            addNewPiece(endX,endY,startPiece);
 
             drawPieces(gameActivity.findViewById(R.id.chessBoard)); // rajzoljuk is ki
             Log.d("ChessGame","- movePiece() -LépésTN1 ütés figurára: "+startX+","+startY+"-> "+endX+","+endY);
@@ -344,10 +309,10 @@ public class ChessBoard {
                         } else {
                             isFirstClick = true;
                             attackFieldXYPosition = new Point(row, col);
-                            if (selectedPiece.isValidMove(attackFieldXYPosition.x, attackFieldXYPosition.y)) {
-                                movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
-                                Log.d("ChessBoard", "pieceView.setOnClickListener 2. kattintás-- Mozgás történt figurás mezőre mezőre:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"--> (" + row + ", " + col + ")");
-                            }
+
+                            movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
+                            Log.d("ChessBoard", "pieceView.setOnClickListener 2. kattintás-- Mozgás történt figurás mezőre mezőre:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"--> (" + row + ", " + col + ")");
+
 
                         }
 
@@ -359,10 +324,10 @@ public class ChessBoard {
                         if (!isFirstClick){
                             isFirstClick = true;
                             this.attackFieldXYPosition = new Point(row, col);
-                            if (selectedPiece.isValidMove(attackFieldXYPosition.x, attackFieldXYPosition.y)) {
-                                movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
-                                Log.d("ChessBoard", "pieceView.setOnClickListener -- Mozgás történt tán üres mezőre:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"--> (" + row + ", " + col + ")");
-                            }
+
+                            movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
+                            Log.d("ChessBoard", "pieceView.setOnClickListener -- Mozgás történt tán üres mezőre:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"--> (" + row + ", " + col + ")");
+
                         }
                     }
                 });
@@ -424,10 +389,10 @@ public class ChessBoard {
                         if (!isFirstClick){
                             isFirstClick = true;
                             this.attackFieldXYPosition = new Point(row, col);
-                            if (selectedPiece.isValidMove(attackFieldXYPosition.x, attackFieldXYPosition.y)) {
-                                movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
-                                Log.d("ChessBoard", "Mozgás történt #2:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"-->(" + row + ", " + col + ")");
-                            }
+
+                            movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
+                            Log.d("ChessBoard", "Mozgás történt #2:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"-->(" + row + ", " + col + ")");
+
                         }
 
                     });
