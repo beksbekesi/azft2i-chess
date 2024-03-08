@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <style name="Base.Theme.Azft2ichesstwoplayer20" parent="Theme.Material3.DayNight.NoActionBar">
+    </style>
+
+    <!-- <style name="Theme.Azft2ichesstwoplayer20" parent="Base.Theme.Azft2ichesstwoplayer20"/> -->
+
+    <style name="Theme.Azft2ichesstwoplayer20" parent="Base.Theme.Azft2ichesstwoplayer20">
+        <item name="android:windowBackground">@drawable/azft2i_background_image_logo1</item>
+    </style>
+
+
+
+
+
+</resources>

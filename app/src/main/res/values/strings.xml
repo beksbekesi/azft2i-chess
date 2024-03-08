@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">AZFT2I Francia Sakk</string>
+    <string name="hello_user_msg">A folytatáshoz érintse meg a képernyőt!</string>
+    <string name="white_player_name_spec">Írd be a fehér játékos nevét</string>
+    <string name="black_player_name_spec">Írd be a fekete játékos nevét</string>
+    <string name="white_player_name_request">Fehér játékos neve:</string>
+    <string name="black_player_name_request">Fekete játékos neve:</string>
+    <string name="white_player_name">Fehér játékos:</string>
+    <string name="black_player_name">Fekete játékos:</string>
+    <string name="back_button">Vissza</string>
+    <string name="exit_button_first_screen">Kilépés</string>
+    <string name="start_game_button">Játék kezdése</string>
+    <string name="start_game_init_button">Játék indítása</string>
+    <string name="game_rules_button">Játékszabályok</string>
+    <string name="about_dev_button">A fejlesztőkről</string>
+    <string name="azft2ichessimage_description">Játék ikon</string>
+    <string name="chess_game_rules_text">Játékszabályok</string>
+
+    <string name="chess_rules_text">Játékszabályok:\n\n
+    0. A francia sakkban a (hagyományos) sakk minden szabálya érvényes (kezdőállás, lépés- és ütésmódok), az alábbiakkal kiegészítve/módosítva a szabályokat:\n
+    1. Az nyer, akinek először elfogynak a bábui. Vagyis az összes figurája lekerül a tábláról.\n
+    2. Ha a lépésen/körön lévő játékos ütni tud, köteles is. Ha többféleképpen üthet, válaszhat ezek közül.\n
+    3. A királyt is ugyanúgy le lehet és le kell ütni, mint a többi bábut.\n
+    4. A sakkadás fogalma nem létezik. Matt sincs. Így bármit léphetünk akkor is, ha a királyunk ütésben van.\n
+    5. A gyalogok királlyá is változhatnak, ha elérik az ellenfél alapvonalát.\n
+    6. Az en passant ütés és a sáncolás nincs. (Megegyezés szerint)\n
+    7. Patthelyzet esetén döntetlen. (Megegyezés szerint)</string>
+
+</resources>

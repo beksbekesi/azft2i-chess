@@ -1,0 +1,10 @@
+Játékszabályok:
+
+0. A francia sakkban a (hagyományos) sakk minden szabálya érvényes (kezdőállás, lépés- és ütésmódok), az alábbiakkal kiegészítve/módosítva a szabályokat:
+1. Az nyer, akinek először elfogynak a bábui. Vagyis az összes figurája lekerül a tábláról.
+2. Ha a lépésen/körön lévő játékos ütni tud, köteles is. Ha többféleképpen üthet, válaszhat ezek közül.
+3. A királyt is ugyanúgy le lehet és le kell ütni, mint a többi bábut.
+4. A sakkadás fogalma nem létezik. Matt sincs. Így bármit léphetünk akkor is, ha a királyunk ütésben van.
+5. A gyalogok királlyá is változhatnak, ha elérik az ellenfél alapvonalát. 
+6. Az en passant ütés és a sáncolás nincs. (Megegyezés szerint)
+7. Patthelyzet esetén döntetlen. (Megegyezés szerint)
