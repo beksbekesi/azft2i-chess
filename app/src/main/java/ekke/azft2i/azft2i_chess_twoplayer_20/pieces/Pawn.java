@@ -68,9 +68,8 @@ public class Pawn extends ChessPiece {
 
             //ha átlósan lép megnézzük szabályos-e
             if(deltaY == 1 && diffX == -1){
-                ChessPiece attackedTarget = board[newX][newY];
                 // ha nincs ott bábu, vagy saját bábut ütne, nem engedjük
-                if(attackedTarget == null || attackedTarget.getColor() == this.getColor()){
+                if(board[newX][newY] != null && board[newX][newY].getColor() == color){
                     return false;
                 }
             }

@@ -21,6 +21,10 @@ public class King extends ChessPiece {
         int deltaX = Math.abs(newX - xPosition);
         int deltaY = Math.abs(newY - yPosition);
 
+        if(board[newX][newY] != null && board[newX][newY].getColor() == color){
+            return false;
+        }
+
         return (deltaX == 1 && deltaY == 0) || (deltaX == 0 && deltaY == 1) || (deltaX == 1 && deltaY == 1);
     }
     @Override

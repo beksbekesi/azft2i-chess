@@ -21,6 +21,11 @@ public class Knight extends ChessPiece {
         // A huszár "L" alakban tud lépni
         int deltaX = Math.abs(newX - xPosition);
         int deltaY = Math.abs(newY - yPosition);
+
+        if(board[newX][newY] != null && board[newX][newY].getColor() == color){
+            return false;
+        }
+
         return (deltaX == 2 && deltaY == 1) || (deltaX == 1 && deltaY == 2);
     }
 

@@ -16,8 +16,34 @@ public class Rook extends ChessPiece {
      */
     @Override
     public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
-        // A bástya csak vízszintesen vagy függőlegesen tud lépni bármennyi mezőt
-        return newX == xPosition || newY == yPosition;
+        // csak egy iranyba lephet
+        if(newX != xPosition && newY!=yPosition){
+            return false;
+        }
+
+
+        //ha vizszintes, megnézzük az összes mezőt az aktuális pozi és az end pozi között, hogy üres-e
+        if(newX != xPosition){
+            int direction = (newX-xPosition > 0) ? 1 : -1;
+            for(int x = xPosition+direction; x!=newX; x = x + direction) {
+                if(board[x][yPosition] != null){
+                    return false;
+                }
+            }
+        }else if(newY != yPosition){ //ha függöleges, ugyanez
+            int direction = (newY-yPosition > 0) ? 1 : -1;
+            for(int y = yPosition+direction; y!=newY; y = y + direction) {
+                if(board[xPosition][y] != null){
+                    return false;
+                }
+            }
+        }
+        // checkoljuk, ha üt akkor ellenséges bábut üt-e
+        if(board[newX][newY] != null && board[newX][newY].getColor() == color){
+            return false;
+        }
+
+        return true;
     }
     @Override
     public String getSymbol() {
