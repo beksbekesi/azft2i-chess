@@ -21,42 +21,69 @@ public class Pawn extends ChessPiece {
     @Override
     public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         int deltaX = Math.abs(newX - this.xPosition);
-        int deltaY = newY - this.yPosition;
+        int deltaY = Math.abs(newY - this.yPosition);
+        int diffX = newX - this.xPosition;
+        int diffY = newX - this.xPosition;
 
 
-        // Fehér gyalog
+
+
+
         if (color == Color.WHITE) {
-            // 1 mező előre, hopphopp
-            if (deltaX == 1 && (deltaY == 0)) {
-                return true;
+            //ha egyértelműen szabálytalan lépés
+            if((xPosition != 1 && diffX > 1)            //nem kezdőpoziban van és többet lépne mint 1
+                    || (xPosition == 1 && diffX > 2)    //kezdőpoziban van és többet lépne mint 2
+                    || deltaY > 1                       //bármilyen poziban, többet mozogna oldalra mint 1
+                    || (deltaY == 1 && diffX != 1)      //ha ütni akar akkor a mozgás átlósan kell történjen
+                    || diffX <=0){                      //ha hátrafele lépne
+                return false;
             }
-            // Kezdő pozícióban kettőt is léphet előre, ha az első pozícióban van még az első kordinátája
-            else if (xPosition == 1 && deltaX == 2 && deltaY == 0) {
-                return true;
+
+            //ha átlósan lép megnézzük szabályos-e
+            if(deltaY == 1 && diffX == 1){
+                ChessPiece attackedTarget = board[newX][newY];
+                // ha nincs ott bábu, vagy saját bábut ütne, nem engedjük
+                if(attackedTarget == null || attackedTarget.getColor() == this.getColor()){
+                    return false;
+                }
             }
-            // Ütés jobbra vagy balra
-            else if (deltaX == 1 && Math.abs(deltaY) == 1 && xPosition < newX) {
-                return true;
+
+            //ha előre lép megnézzük szabad-e
+            for(int x = xPosition+1; x <= newX; x++){
+                if(board[x][yPosition] != null){
+                    return false;
+                }
             }
         }
 
         // Fekete gyalog
         if (color == Color.BLACK) {
-            // Előre lépés
-            if (deltaX == 0 && (deltaY == -1)) {
-                return true;
+            if((xPosition != 6 && diffX < -1)         //nem kezdőpoziban van és többet lépne mint 1
+                    || (xPosition == 6 && diffX < -2) //kezdőpoziban van és többet lépne mint 2
+                    || deltaY > 1                    //bármilyen poziban, többet mozogna oldalra mint 1
+                    || (deltaY == 1 && diffX != -1)  //ha ütni akar akkor a mozgás átlósan kell történjen
+                    || diffX >= 0){                  ////ha hátrafele lépne
+                return false;
             }
-            // Kezdő pozícióban kettőt is léphet előre
-            else if (xPosition == 6 && deltaX == 2 && deltaY == 0) {
-                return true;
+
+            //ha átlósan lép megnézzük szabályos-e
+            if(deltaY == 1 && diffX == -1){
+                ChessPiece attackedTarget = board[newX][newY];
+                // ha nincs ott bábu, vagy saját bábut ütne, nem engedjük
+                if(attackedTarget == null || attackedTarget.getColor() == this.getColor()){
+                    return false;
+                }
             }
-            // Ütés jobbra vagy balra
-            else if (deltaX == 1 && deltaY == -1 && xPosition > newX) {
-                return true;
+
+            //ha előre lép megnézzük szabad-e
+            for(int x = xPosition-1; x >= newX; x--){
+                if(board[x][yPosition] != null){
+                    return false;
+                }
             }
         }
 
-        return false;
+        return true;
     }
 
 
