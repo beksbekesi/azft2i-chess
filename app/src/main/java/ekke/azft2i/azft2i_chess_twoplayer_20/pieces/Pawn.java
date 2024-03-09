@@ -49,9 +49,11 @@ public class Pawn extends ChessPiece {
             }
 
             //ha előre lép megnézzük szabad-e
-            for(int x = xPosition+1; x <= newX; x++){
-                if(board[x][yPosition] != null){
-                    return false;
+            if((diffX == 1 || diffX == 2) && deltaY==0) {
+                for (int x = xPosition + 1; x <= newX; x++) {
+                    if (board[x][yPosition] != null) {
+                        return false;
+                    }
                 }
             }
         }
@@ -69,15 +71,19 @@ public class Pawn extends ChessPiece {
             //ha átlósan lép megnézzük szabályos-e
             if(deltaY == 1 && diffX == -1){
                 // ha nincs ott bábu, vagy saját bábut ütne, nem engedjük
-                if(board[newX][newY] != null && board[newX][newY].getColor() == color){
+                ChessPiece attackedTarget = board[newX][newY];
+                // ha nincs ott bábu, vagy saját bábut ütne, nem engedjük
+                if(attackedTarget == null || attackedTarget.getColor() == this.getColor()){
                     return false;
                 }
             }
 
             //ha előre lép megnézzük szabad-e
-            for(int x = xPosition-1; x >= newX; x--){
-                if(board[x][yPosition] != null){
-                    return false;
+            if((diffX == -1 || diffX == -2) && deltaY==0) {
+                for (int x = xPosition - 1; x >= newX; x--) {
+                    if (board[x][yPosition] != null) {
+                        return false;
+                    }
                 }
             }
         }
