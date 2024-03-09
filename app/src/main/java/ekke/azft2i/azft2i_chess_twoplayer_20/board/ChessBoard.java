@@ -151,7 +151,7 @@ public class ChessBoard {
         }
 
         // ellenőrizzük, hogy a bábu szabályosan mozog-e
-        if (!startPiece.isValidMove(endX, endY)) {
+        if (!startPiece.isValidMove(endX, endY, board, isWhiteMove)) {
             Log.d("ChessBoard", "HIBA - Érvénytelen mozgás a validálás közben, a mozgás nem megtehető.- movePiece()");
             return;
         }
@@ -392,14 +392,11 @@ public class ChessBoard {
 
                             movePiece(selectedPiece.getXPosition(), selectedPiece.getYPosition(), attackFieldXYPosition.x, attackFieldXYPosition.y);
                             Log.d("ChessBoard", "Mozgás történt #2:"+this.selectedPiece.getXPosition()+","+this.selectedPiece.getYPosition()+"-->(" + row + ", " + col + ")");
-
                         }
-
                     });
                 }
             }
         }
-
         //  GridLayout --> FrameLayout
         chessBoardContainer.addView(chessBoard);
     }

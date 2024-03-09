@@ -15,7 +15,7 @@ public class Rook extends ChessPiece {
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
     @Override
-    public boolean isValidMove(int newX, int newY) {
+    public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         // A bástya csak vízszintesen vagy függőlegesen tud lépni bármennyi mezőt
         return newX == xPosition || newY == yPosition;
     }

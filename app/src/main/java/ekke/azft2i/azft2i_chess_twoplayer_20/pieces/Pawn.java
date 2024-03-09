@@ -19,7 +19,7 @@ public class Pawn extends ChessPiece {
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
     @Override
-    public boolean isValidMove(int newX, int newY) {
+    public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         int deltaX = Math.abs(newX - this.xPosition);
         int deltaY = newY - this.yPosition;
 

@@ -39,7 +39,7 @@ public abstract class ChessPiece {
      * @param y Az Y koordináta, ahová a figura lépni szeretne.
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
-    public abstract boolean isValidMove(int x, int y);
+    public abstract boolean isValidMove(int x, int y, ChessPiece[][] board, boolean isWhiteMove);
 
     /**
      * Visszaadja a bábu szövegesen reprezentáló karaktert vagy karakterláncot.
@@ -110,7 +110,7 @@ public abstract class ChessPiece {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (isValidMove(i, j)) {
+                if (isValidMove(i, j, board, isWhite())) {
                     possibleMoves.add(new Point(i, j));
                 }
             }
@@ -139,7 +139,7 @@ public abstract class ChessPiece {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (isValidMove(i, j)) {
+                if (isValidMove(i, j, board, isWhite())) {
                     if (isValidCapturingMove(i, j, board)) {
                         possibleCapturingMoves.add(new int[]{i, j});
                     }
@@ -175,7 +175,7 @@ public abstract class ChessPiece {
         }
 
         // Ellenőrizzük, hogy az adott bábu érvényesen tud-e lépni az adott célmezőre.
-        if (!isValidMove(x, y)) {
+        if (!isValidMove(x, y, board, isWhite())) {
             return false;
         }
 

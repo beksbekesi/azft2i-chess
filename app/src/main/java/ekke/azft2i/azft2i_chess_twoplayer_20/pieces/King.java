@@ -16,7 +16,7 @@ public class King extends ChessPiece {
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
     @Override
-    public boolean isValidMove(int newX, int newY) {
+    public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         // A király az egyetlen mezőt tud lépni vízszintesen, függőlegesen vagy átlósan
         int deltaX = Math.abs(newX - xPosition);
         int deltaY = Math.abs(newY - yPosition);

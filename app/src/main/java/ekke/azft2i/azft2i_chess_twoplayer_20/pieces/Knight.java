@@ -17,7 +17,7 @@ public class Knight extends ChessPiece {
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
     @Override
-    public boolean isValidMove(int newX, int newY) {
+    public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         // A huszár "L" alakban tud lépni
         int deltaX = Math.abs(newX - xPosition);
         int deltaY = Math.abs(newY - yPosition);

@@ -16,7 +16,7 @@ public class Queen extends ChessPiece {
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
     @Override
-    public boolean isValidMove(int newX, int newY) {
+    public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         // A királynő vízszintesen, függőlegesen vagy átlósan bármennyi mezőt tud lépni
         int deltaX = Math.abs(newX - xPosition);
         int deltaY = Math.abs(newY - yPosition);

@@ -16,7 +16,7 @@ public class Bishop extends ChessPiece {
      * @return Igaz, ha a lépés megtehető, egyébként hamis.
      */
     @Override
-    public boolean isValidMove(int newX, int newY) {
+    public boolean isValidMove(int newX, int newY, ChessPiece[][] board, boolean isWhiteMove) {
         // A futó csak átlósan tud lépni bármennyi mezőt
         int deltaX = Math.abs(newX - xPosition);
         int deltaY = Math.abs(newY - yPosition);
